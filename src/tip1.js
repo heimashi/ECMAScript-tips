@@ -20,7 +20,7 @@ function testVar(flag){
 2 'A var'
 4 'A var'
  */
-testVar(true)
+//testVar(true)
 
 /* 
 返回的结果:
@@ -78,3 +78,13 @@ function testDefineTwice2(condition){
 }
 
 //testDefineTwice2(true);
+
+
+/**
+ * 在浏览器环境下，console中执行下面的代码，var变量的作用域会被提高到window对象的属性
+ */
+var aa = "aa";
+let bb = "bb";
+const cc = "cc";
+console.log(this.aa, this.bb, this.cc)
+console.log(window.aa)
