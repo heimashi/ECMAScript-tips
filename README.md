@@ -100,7 +100,67 @@ console.log(window.aa)
 ## Tip2- 函数
 
 ### 函数默认参数
-ES5之前的默认参数
+ES5之前的默认参数可以采用||符号来模拟实现，例如：
+```JavaScript
+function test1(a, b, c){
+    b = b || 100;
+    c = c || "OK"
+}
+```
+上面的例子所示，但是||符合左边为undefined null 0 ""都会继续返回右边的值，b如果真想传递null或者0 ""进入函数的时候，会发现实现不了，拿到的都是默认值
+```JavaScript
+let a = undefined || 1
+let b = null || 2
+let c = 0 || 3
+console.log(a, b, c)
+```
+ES6中引入了一种更方便的方式，并且解决了上面的问题
+```JavaScript
+function test2(a, b=100, c="OK"){
+    console.log(a, b, c)
+}
+
+test2(1)
+test2(1,0)
+test2(1,null)
+test2(1,undefined)
+test2(1, undefined, undefined)
+test2(1, undefined, "")
+```
+函数在调用的时候，如果不传，或者传人undefined，都会使用他的默认参数，而如果传入null或者0 ""都会使用这些值而不是默认值。
+
+ES6中的默认参数会影响函数的参数，ES5的表现形式为：
+```JavaScript
+function test3(a, b){
+    //'use strict'
+    console.log(a===arguments[0])
+    console.log(b===arguments[1])
+    a = 3;
+    b = 4;
+    console.log(a===arguments[0])
+    console.log(b===arguments[1])
+}
+```
+在非严格模式下修改参数a b的值后，会同步到arguments上去，在严格模式下不会同步上去。
+
+引入了默认参数后，arguments的表现形式如下所示：
+```JavaScript
+function test4(a, b = 5){
+    console.log(arguments.length)
+    console.log(a===arguments[0])
+    console.log(b===arguments[1])
+    a = 3;
+    b = 4;
+    console.log(a===arguments[0])
+    console.log(b===arguments[1])
+}
+
+test4(1)
+test4(1,2)
+```
+如上所示，默认参数如果不传，arguments长度也会相应的减少，并且对参数的重新赋值不会同步到arguments参数上去
+
+
 
 
 
