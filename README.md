@@ -4,7 +4,7 @@
 
 
 
-### Tip1- 变量声明 var let const
+## Tip1- 变量声明 var let const
 
 详见案例代码[tip1.js](https://github.com/heimashi/ES6-tips/blob/master/src/tip1.js)
 
@@ -94,11 +94,22 @@ console.log(window.aa)
 ```
 
 
-### Tip2- 函数
 
 
-### Tip3- this
+
+## Tip2- 函数
+
+### 函数默认参数
+ES5之前的默认参数
+
+
+
+
+
+
+## Tip3- this
 详见案例代码[tip3.js](https://github.com/heimashi/ES6-tips/blob/master/src/tip3.js)
+
 **this是在函数被调用时发生的绑定，它指向什么完全取决于函数在哪里被调用**
 
 this 的四种绑定规则
@@ -109,7 +120,7 @@ this 的四种绑定规则
 - new绑定
 
 
-##### **默认绑定**
+#### **默认绑定**
 最直接的一种方式，不加任何的修饰符直接调用函数，如在浏览器中执行下面的代码：
 ```JavaScript
 function testThis0() {
@@ -135,7 +146,7 @@ testThis1();
 ```
 在node环境中执行上面的代码，testThis1函数内的this对象为调用的global全局对象，而外部的this对象为node模块的exports对象。
 
-##### **隐式绑定**
+#### **隐式绑定**
 通过对象去调用函数，调用位置存在“上下文对象”
 ```JavaScript
 function testThis3() {
@@ -148,7 +159,7 @@ let obj1 = {
 obj1.testThis3();
 ```
 
-##### **显式绑定**
+#### **显式绑定**
 使用 Function.prototype 中的三个方法 call(), apply(), bind()显示绑定对象。三个函数，都可以改变函数的 this 指向到指定的对象。
 不同之处在于，call() 和 apply() 是立即执行函数，并且接受的参数的形式不同：
     call(this, arg1, arg2, ...)
@@ -171,7 +182,7 @@ var t4 = 1;//浏览器
 testThis4(5);
 ```
 
-##### **new绑定**
+#### **new绑定**
 new操作符会创建一个全新的对象，这个新对象会被执行 [[Prototype]] 连接，这个新对象会绑定到函数调用的 this。如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象。
 ```JavaScript
 function testThis5(t5){
@@ -183,7 +194,7 @@ console.log(m)
 
 
 
-#### 绑定的优先级
+### 绑定的优先级
 绑定的优先级：**new绑定 > 显式绑定 > 隐式绑定 > 默认绑定**， 见下面的代码：
 ```JavaScript
 function testThis6(t) {
@@ -203,5 +214,5 @@ console.log(obj3, obj4)
 
 
 
-#### ES6箭头函数 
-箭头函数不会绑定this，箭头函数内部的this指向为外层第一个非箭头函数对象
+### ES6箭头函数 
+ES6新出现的箭头函数比较特殊，解决了JS中函数混乱的this指向，箭头函数不会绑定this，箭头函数内部的this指向为外层第一个非箭头函数对象
