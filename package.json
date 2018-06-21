@@ -1,0 +1,19 @@
+{
+  "name": "es6-tips",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heimashi/ES6-tips.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heimashi/ES6-tips/issues"
+  },
+  "homepage": "https://github.com/heimashi/ES6-tips#readme"
+}
