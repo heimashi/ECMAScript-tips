@@ -97,7 +97,7 @@ console.log(window.aa)
 
 
 
-## Tip2- 函数
+## Tip2- 函数参数
 
 ### 函数默认参数
 ES5之前的默认参数可以采用||符号来模拟实现，例如：
@@ -107,7 +107,7 @@ function test1(a, b, c){
     c = c || "OK"
 }
 ```
-上面的例子所示，但是||符合左边为undefined null 0 ""都会继续返回右边的值，b如果真想传递null或者0 ""进入函数的时候，会发现实现不了，拿到的都是默认值
+上面的例子所示，**但是||符合左边为undefined null 0 ""都会继续返回右边的值**，b如果真想传递null或者0 ""进入函数的时候，会发现实现不了，拿到的都是默认值
 ```JavaScript
 let a = undefined || 1
 let b = null || 2
@@ -158,12 +158,89 @@ function test4(a, b = 5){
 test4(1)
 test4(1,2)
 ```
-如上所示，默认参数如果不传，arguments长度也会相应的减少，并且对参数的重新赋值不会同步到arguments参数上去
+如上所示，**默认参数如果不传，arguments长度也会相应的减少，并且对参数的重新赋值不会同步到arguments参数上去**
 
+默认参数的其他用法，默认参数可以是函数，也可以是前面定义的参数
+```JavaScript
+function getSth(){
+    return 100
+}
 
+function test5(a, b=getSth(), c=a){
+    console.log(a, b, c)
+}
 
+test5(1)
+```
 
+### 无命名参数和可变参数
+ES5中，函数在定义的时候可以省略参数的定义，调用的时候可以传人任意的参数，然后函数体内可以通过arguments访问这些参数，这种参数称为无命名参数
+```JavaScript
+function test6(){
+    console.log(arguments.length)
+    for(let i=0; i<arguments.length; i++){
+        console.log(arguments[i])
+    }
+}
 
+test6(3,4,"a","b")
+test6(null,5)
+```
+无命名参数虽然可以省略定义全部的参数，但却不是很直观，别人在使用该函数时需要看函数体才能知道参数怎么对应。
+
+在ES6中可以采用可变参数三个点...来解决上面的问题
+```JavaScript
+function test7(a, ...b){
+    console.log(b.length)
+    console.log(arguments.length)
+}
+
+test7(1,2,3)
+```
+另外，三个点...除了可以用做可变参数的声明，在ES6中还可以作为展开运算符，这个会是相当方便的
+
+**展开运算符可以展开数组**
+```JavaScript
+function test8(a, ...b){
+    let m = [a, ...b, "t1", "t2"]
+    let n = [...arguments, ...m]
+    console.log(m, n)
+}
+
+test8(1,2,3)
+```
+**展开运算符可以展开对象**
+```JavaScript
+function test9(state){
+    let newState = {
+        ...state, 
+        a:false,
+        m:2
+    }
+    console.log(state, newState)
+}
+
+test9({a:true, b:2, c:"haha"})
+```
+例如在redux框架中，在reducer中需要根据原有的state生成新的state对象，这个时候例如展开运算符将非常方便，展开对象的所有属性，如果在展开运输后面再声明相同名称的属性会覆盖前面的
+
+展开对象的属性是浅拷贝
+```JavaScript
+function test10(state){
+    let newState = {
+        ...state, 
+        a:false,
+        m:2
+    }
+    state.b = 5 //不会影响newState
+    state.c.c1=3 //会影响newState
+    console.log(state, newState)
+    newState.b = 55 //不会影响state
+    newState.c.c1=33 //会影响state
+    console.log(state, newState)
+}
+test10({a:true, b:2, c:{c1:2, c2:"ccc"}})
+```
 
 
 
