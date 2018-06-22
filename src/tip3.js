@@ -92,3 +92,46 @@ console.log(obj3)
 let obj4 = new ff(4) // new绑定 > 显式绑定
 console.log(obj3, obj4)
 
+
+/**
+ * 箭头函数 
+ */
+let f1 = () => "hello"
+let f2 = value => value
+let f = function(a, b){
+    return a+b;
+}
+let f3 = (a, b) => a+b //return可以省略
+let f4 = (a, b) => {a+b}
+let f5 = (a, b) => {return a+b} //有大括号的时候需要显示的return
+
+console.log(f3(1,2), f4(1,2), f5(1,2))
+
+
+function test(){
+    console.log(1, this)
+    setTimeout(() => {
+        console.log(2, this)
+    }, 50);
+    setTimeout(function(){
+        console.log(3, this)
+    }, 50);
+}
+
+test();
+
+function test2(){
+    
+    console.log(1, this)
+    setTimeout(() => {
+        console.log(2, this)
+        
+
+    }, 50);
+
+    setTimeout(function(){
+        console.log(3, this)
+    }, 50);
+}
+
+//test2()

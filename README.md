@@ -352,4 +352,55 @@ console.log(obj3, obj4)
 
 
 ### ES6箭头函数 
-ES6新出现的箭头函数比较特殊，解决了JS中函数混乱的this指向，箭头函数不会绑定this，箭头函数内部的this指向为外层第一个非箭头函数对象
+ES6新出现的箭头函数比较特殊，解决了JS中函数混乱的this指向，箭头函数不会绑定this，箭头函数内部的this指向为外层第一个非箭头函数的this
+
+箭头函数与传统函数的区别：
+- 没有this super arguments 和 new.target绑定
+- 不能通过new来调用 普通函数拥有[[Construct]]和[[Call]]，箭头函数不具有[[Construct]]
+- 没有原型 因为不能new，故不存在prototype属性
+- 不可以改变this的绑定
+- 不支持arguments
+
+```JavaScript
+let f1 = () => "hello"
+let f2 = value => value
+let f = function(a, b){
+    return a+b;
+}
+let f3 = (a, b) => a+b //return可以省略
+let f4 = (a, b) => {a+b}
+let f5 = (a, b) => {return a+b} //有大括号的时候需要显示的return
+
+console.log(f3(1,2), f4(1,2), f5(1,2))
+```
+
+**箭头函数不会绑定this，箭头函数内部的this指向为外层第一个非箭头函数的this**
+```JavaScript
+function test(){
+    console.log(1, this)
+    setTimeout(() => {
+        console.log(2, this)
+    }, 50);
+    setTimeout(function(){
+        console.log(3, this)
+    }, 50);
+}
+
+test();
+```
+传统函数的this会变化，而箭头函数的this还是跟外层一致
+
+可以来验证一下箭头函数的this是绑定最近一层非箭头函数的this
+```JavaScript
+function test(){
+    console.log(1, this)
+    setTimeout(() => {
+        console.log(2, this)
+    }, 50);
+    setTimeout(function(){
+        console.log(3, this)
+    }, 50);
+}
+
+test();
+```
